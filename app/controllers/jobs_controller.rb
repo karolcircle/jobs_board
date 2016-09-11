@@ -23,13 +23,20 @@ def create
 end
 
 
-def edit
+def edit  
 end
 
 def update
+  if @job.update(jobs_params)
+    redirect_to @job
+  else
+    render 'Edit'
+  end
 end
 
 def destroy
+  @job.destroy
+  redirect_to root_path
 end
 
 private
