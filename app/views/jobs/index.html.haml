@@ -2,6 +2,11 @@
   %h2= link_to job.title, job
   %p= job.description
   %p= job.company
+  - if job.category != nil
+    - if job.category.name == "Full time"
+      = fa_icon "camera-retro"
+    - else
+      = job.category.name
   %p= job.url
 
 = link_to "New Job", new_job_path

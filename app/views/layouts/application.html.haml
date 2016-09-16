@@ -7,6 +7,22 @@
   = javascript_include_tag 'application', 'data-turbolinks-track' => true 
  
 %body
-  - Category.all.each do |category|
-    = link_to category.name, jobs_path(category: category.name)
-  = yield
+  %p.notice
+    = notice 
+  %nav.navbar.navbar-default
+    .container
+      .navbar-brand Jobs
+      %ul.nav.navbar-nav
+        %li= link_to "All Jobs", root_path         
+        - Category.all.each do |category|
+          %li= link_to category.name, jobs_path(category: category.name)
+      .navbar-text.navbar-right.navbar-link    
+        - if user_signed_in?   
+          = link_to "Logout", destroy_user_session_path, :method => :delete
+          = link_to "New Job", new_job_path
+        - else
+          = link_to "Sign in", new_user_session_path
+    .container  
+      = yield
+
+
