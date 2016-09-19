@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
 before_action :find_job, only: [:show, :edit, :update, :destroy]
+before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]  
 
 def index
   if params[:category].blank?
@@ -21,12 +22,12 @@ def create
   @job = Job.new(jobs_params)
 
   if @job.save
+    flash[:notice] = "Job successfully created"
     redirect_to @job
   else
     render 'new' 
   end
 end
-
 
 def edit  
 end
